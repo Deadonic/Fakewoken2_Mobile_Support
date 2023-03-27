@@ -115,7 +115,10 @@ LeftClick.TextColor3 = Color3.fromRGB(255, 255, 255)
 LeftClick.TextScaled = true
 LeftClick.TextSize = 14.000
 LeftClick.TextWrapped = true
-
+LeftClick.Draggable=true
+RightClick.Draggable=true
+Key_F.Draggable=true
+Key_Q.Draggable=true
 UIAspectRatioConstraint_5.Parent = LeftClick
 
 UICorner_4.CornerRadius = UDim.new(0, 15)
@@ -123,7 +126,7 @@ UICorner_4.Parent = LeftClick
 
 -- Scripts:
 
-local function CCHB_fake_script() -- Mobile_Control.Handler 
+local function KKJMKTO_fake_script() -- Mobile_Control.Handler 
 	local script = Instance.new('LocalScript', Mobile_Control)
 
 	--Misc
@@ -143,6 +146,43 @@ local function CCHB_fake_script() -- Mobile_Control.Handler
 	local Block=UI:WaitForChild("Key_F");
 	local Inp="";
 	--// Func
+	local function Block(Character,Type,Input)
+		if Input=="M1" then
+			for i,v in pairs(Character:GetChildren()) do
+				if v:IsA("Tool") then
+					if v:FindFirstChild("Block") then
+						local tool=v
+						tool:FindFirstChild("Block"):FindFirstChild("RemoteEvent"):FireServer("M1")
+					end
+				end
+			end
+			if Type==nil then
+			else
+				if Type=="Start" then
+					for i,v in pairs(Character:GetChildren()) do
+						if v:IsA("Tool") then
+							if v:FindFirstChild("Block") then
+								local tool=v
+								tool:FindFirstChild("Block"):FindFirstChild("RemoteEvent"):FireServer("Start")
+							end
+						end
+					end
+					if Type=="End" then
+						for i,v in pairs(Character:GetChildren()) do
+							if v:IsA("Tool") then
+								if v:FindFirstChild("Block") then
+									local tool=v
+									tool:FindFirstChild("Block"):FindFirstChild("RemoteEvent"):FireServer("End")
+								end
+							end
+						end
+					end
+				end
+			end
+			end
+	
+	end
+	
 	local function Swing(Character,Type,Input)
 		if Input=="M1" then
 			Inp=Input
@@ -176,13 +216,19 @@ local function CCHB_fake_script() -- Mobile_Control.Handler
 		end
 	end
 	--// Main
+	
 	LeftClick.MouseButton1Click:Connect(function()
 		for i,v in pairs(LocalPlayer.Character:GetChildren()) do
 			if v:FindFirstChild("Click") then
 				Swing(LocalPlayer.Character,"Magic","M1")
 			end
 			if v:FindFirstChild("Combat") then
-				Swing(LocalPlayer.Character,"Wep","M1")
+				if Block_Value==true then
+					Block(LocalPlayer.Character,nil,"M1")
+				else
+					Swing(LocalPlayer.Character,"Wep","M1")
+				end
+				
 			end
 		end
 	end)
@@ -196,6 +242,31 @@ local function CCHB_fake_script() -- Mobile_Control.Handler
 			end
 		end
 	end)
+	Block.MouseButton1Down:Connect(function()
+		for i,v in pairs(LocalPlayer.Character:GetChildren()) do
+			if v:IsA("Tool") then
+				if v:FindFirstChild("Block") then
+					Block(LocalPlayer.Character,"Start")
+					Block_Value=true
+				else
+					return
+				end
+			end
+		end
+	end)
+	Block.MouseButton1Up:Connect(function()
+		for i,v in pairs(LocalPlayer.Character:GetChildren()) do
+			if v:IsA("Tool") then
+				if v:FindFirstChild("Block") then
+					Block(LocalPlayer.Character,"End")
+					Block_Value=false
+				else
+					return
+				end
+			end
+		end
+	end)
+	
 	
 end
-coroutine.wrap(CCHB_fake_script)()
+coroutine.wrap(KKJMKTO_fake_script)()
