@@ -47,6 +47,7 @@ Input.Parent = LeftClick
 Input.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Input.BackgroundTransparency = 1.000
 Input.Size = UDim2.new(0, 171, 0, 171)
+Input.ZIndex = 1000
 Input.Font = Enum.Font.Highway
 Input.Text = "M1/Use"
 Input.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -93,6 +94,7 @@ Input_2.Parent = RightClick
 Input_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Input_2.BackgroundTransparency = 1.000
 Input_2.Size = UDim2.new(0, 171, 0, 171)
+Input_2.ZIndex = 1000
 Input_2.Font = Enum.Font.Highway
 Input_2.Text = "M2/Feint"
 Input_2.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -121,6 +123,7 @@ Input_3.Parent = Key_F
 Input_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Input_3.BackgroundTransparency = 1.000
 Input_3.Size = UDim2.new(0, 136, 0, 136)
+Input_3.ZIndex = 1000
 Input_3.Font = Enum.Font.Highway
 Input_3.Text = "F/Block"
 Input_3.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -149,6 +152,7 @@ Input_4.Parent = Key_Q
 Input_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Input_4.BackgroundTransparency = 1.000
 Input_4.Size = UDim2.new(0, 136, 0, 136)
+Input_4.ZIndex = 1000
 Input_4.Font = Enum.Font.Highway
 Input_4.Text = "Q/Dash"
 Input_4.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -165,7 +169,7 @@ UIAspectRatioConstraint_9.Parent = Key_Q
 
 -- Scripts:
 
-local function GIQBIY_fake_script() -- Mobile_Control.Handler 
+local function VLSLRNX_fake_script() -- Mobile_Control.Handler 
 	local script = Instance.new('LocalScript', Mobile_Control)
 
 	--Misc
@@ -185,7 +189,6 @@ local function GIQBIY_fake_script() -- Mobile_Control.Handler
 	local Block=UI:WaitForChild("Key_F");
 	--// Main
 	spawn(function() while game:GetService("RunService").RenderStepped:wait() do local Transcurrido = math.abs(Tiempo-tick()) Tiempo = tick() FPS = math.floor(1/Transcurrido) end end) while wait(0.5) do  FPS_txt.Text="FPS: " ..tostring(FPS) end
-	for i,v in pairs(UI:GetChildren()) do if v:IsA("Frame") then v.Draggable=true end end
 	Block:WaitForChild("Input").MouseButton1Down:Connect(function()
 		if not Block_Value then Block_Value=true for i,v in pairs(LocalPlayer.Character:GetChildren()) do if v:IsA("Tool") and v:FindFirstChild("Combat") and v:FindFirstChild("Block") then print("Blocking_Requested") v:WaitForChild("Block"):WaitForChild("RemoteEvent"):FireServer("Start") end end else Block_Value=false end
 	end)
@@ -211,4 +214,4 @@ local function GIQBIY_fake_script() -- Mobile_Control.Handler
 	end)
 	
 end
-coroutine.wrap(GIQBIY_fake_script)()
+coroutine.wrap(VLSLRNX_fake_script)()
