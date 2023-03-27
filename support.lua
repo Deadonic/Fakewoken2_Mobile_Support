@@ -165,7 +165,7 @@ UIAspectRatioConstraint_9.Parent = Key_Q
 
 -- Scripts:
 
-local function PCYI_fake_script() -- Mobile_Control.Handler 
+local function GIQBIY_fake_script() -- Mobile_Control.Handler 
 	local script = Instance.new('LocalScript', Mobile_Control)
 
 	--Misc
@@ -192,6 +192,23 @@ local function PCYI_fake_script() -- Mobile_Control.Handler
 	Block:WaitForChild("Input").MouseButton1Up:Connect(function()
 		if Block_Value then Block_Value=false for i,v in pairs(LocalPlayer.Character:GetChildren()) do if v:IsA("Tool") and v:FindFirstChild("Combat") and v:FindFirstChild("Block") then print("Blocking: Stopped") end end else Block_Value=false end
 	end)
+	LeftClick:WaitForChild("Input").MouseButton1Click:Connect(function()
+		if Block_Value==true then
+			print("feinting")
+			for i,v in pairs(LocalPlayer.Character:GetChildren()) do
+				if v:IsA("Tool") then			
+					if v:FindFirstChild("Combat") and v:FindFirstChild("Blocking") then v:WaitForChild("Combat"):WaitForChild("RemoteEvent"):FireServer("M2") end	
+				end
+			end
+		else
+			for i,v in pairs(LocalPlayer.Character:GetChildren()) do
+				if v:IsA("Tool") then			
+					if v:FindFirstChild("Click") then v:WaitForChild("Click"):WaitForChild("RemoteEvent"):FireServer("M1") end
+					if v:FindFirstChild("Combat") and v:FindFirstChild("Block") then v:WaitForChild("Combat"):WaitForChild("RemoteEvent"):FireServer("M1") end
+					end
+				end
+		end
+	end)
 	
 end
-coroutine.wrap(PCYI_fake_script)()
+coroutine.wrap(GIQBIY_fake_script)()
