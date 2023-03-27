@@ -30,6 +30,7 @@ FPS.Parent = Mobile_Control
 FPS.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 FPS.BackgroundTransparency = 1.000
 FPS.Size = UDim2.new(0, 634, 0, 48)
+FPS.Visible = false
 FPS.Font = Enum.Font.Code
 FPS.Text = "FPS:"
 FPS.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -49,6 +50,7 @@ Key_F.BackgroundColor3 = Color3.fromRGB(71, 71, 71)
 Key_F.BackgroundTransparency = 0.500
 Key_F.Position = UDim2.new(0.814698994, 0, 0.287859827, 0)
 Key_F.Size = UDim2.new(0, 136, 0, 136)
+Key_F.Visible = false
 Key_F.ZIndex = 1000
 Key_F.Font = Enum.Font.Highway
 Key_F.Text = "F/Block"
@@ -68,6 +70,7 @@ Key_Q.BackgroundColor3 = Color3.fromRGB(71, 71, 71)
 Key_Q.BackgroundTransparency = 0.500
 Key_Q.Position = UDim2.new(0.0664581731, 0, 0.287859827, 0)
 Key_Q.Size = UDim2.new(0, 136, 0, 136)
+Key_Q.Visible = false
 Key_Q.ZIndex = 1000
 Key_Q.Font = Enum.Font.Highway
 Key_Q.Text = "Q/Dash"
@@ -87,6 +90,7 @@ RightClick.BackgroundColor3 = Color3.fromRGB(71, 71, 71)
 RightClick.BackgroundTransparency = 0.500
 RightClick.Position = UDim2.new(0.800625503, 0, 0.525657058, 0)
 RightClick.Size = UDim2.new(0, 171, 0, 171)
+RightClick.Visible = false
 RightClick.ZIndex = 1000
 RightClick.Font = Enum.Font.Highway
 RightClick.Text = "M2/Feint"
@@ -121,7 +125,7 @@ UICorner_4.Parent = LeftClick
 
 -- Scripts:
 
-local function IJXOM_fake_script() -- Mobile_Control.Handler 
+local function XDVMA_fake_script() -- Mobile_Control.Handler 
 	local script = Instance.new('LocalScript', Mobile_Control)
 
 	--Misc
@@ -139,17 +143,46 @@ local function IJXOM_fake_script() -- Mobile_Control.Handler
 	local LeftClick=UI:WaitForChild("LeftClick");
 	local RightClick=UI:WaitForChild("RightClick");
 	local Block=UI:WaitForChild("Key_F");
+	--// Func
+	local function Swing(Character,Type)
+		if Type=="Wep" then
+			print("wep")
+			for i,v in pairs(Character:GetChildren()) do
+				if v:IsA("Tool") then
+					if v:FindFirstChild("Combat") then
+						print("Combat Found!")
+						for i,v in pairs(v.Combat:GetChildren()) do
+							if v:IsA("RemoteEvent") then
+								v:FireServer("M1")
+								
+							end
+						end
+					end
+				end
+			end
+		end	
+		if Type=="Magic" then
+			for i,v in pairs(Character:GetChildren()) do
+				if v:IsA("Tool") then
+					if v:FindFirstChild("Click") then
+						print("magic")
+						v:FindFirstChild("Click"):FindFirstChild("RemoteEvent"):FireServer("M1")
+					end
+				end
+			end	
+		end
+	end
 	--// Main
-	spawn(function() while game:GetService("RunService").RenderStepped:wait() do local Transcurrido = math.abs(Tiempo-tick()) Tiempo = tick() FPS = math.floor(1/Transcurrido) end end) while wait(0.5) do  FPS_txt.Text="FPS: " ..tostring(FPS) end
 	LeftClick.MouseButton1Click:Connect(function()
 		for i,v in pairs(LocalPlayer.Character:GetChildren()) do
-			if v:IsA("Tool") then
-				if v:FindFirstChild("Block") then
-					local tool=v
-					tool:WaitForChild("Combat"):WaitForChild("RemoteEvent"):FireServer("M1")
-				end
+			if v:FindFirstChild("Click") then
+				Swing(LocalPlayer.Character,"Magic")
+			end
+			if v:FindFirstChild("Combat") then
+				Swing(LocalPlayer.Character,"Wep")
 			end
 		end
 	end)
+	
 end
-coroutine.wrap(IJXOM_fake_script)()
+coroutine.wrap(XDVMA_fake_script)()
